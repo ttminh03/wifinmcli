@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "6V26RfnCHSE=",
+  "success": true,
+  "projectFilePath": "/home/minh/congty/wifi/WifiManager(1)/WifiManager/WifiManager.csproj",
+  "expectedPackageFiles": [
+    "/home/minh/.nuget/packages/microsoft.aspnetcore.app.internal.assets/10.0.0/microsoft.aspnetcore.app.internal.assets.10.0.0.nupkg.sha512",
+    "/home/minh/.nuget/packages/tmds.dbus.protocol/0.20.0/tmds.dbus.protocol.0.20.0.nupkg.sha512"
+  ],
+  "logs": []
+}

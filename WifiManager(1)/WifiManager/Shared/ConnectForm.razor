@@ -1,0 +1,108 @@
+@using WifiManager.Models
+
+<div class="modal-backdrop" @onclick="OnCancel">
+    <div class="modal-card" @onclick:stopPropagation="true">
+
+        <div class="modal-header">
+            <span class="modal-icon">🔒</span>
+            <div>
+                <div class="modal-title">Connect to Network</div>
+                <div class="modal-ssid">@AccessPoint.SSID</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Security Type</label>
+            <select class="form-control" @bind="SecurityType">
+                <option value="Open">Open (No Password)</option>
+                <option value="WPA2">WPA2-Personal</option>
+                <option value="WPA3">WPA3-Personal (SAE)</option>
+                <option value="WPA">WPA-Personal</option>
+                <option value="WEP">WEP (Legacy)</option>
+            </select>
+        </div>
+
+        @if (SecurityType != "Open")
+        {
+            <div class="form-group">
+                <label>Password</label>
+                <div class="pw-wrapper">
+                    <input class="form-control"
+                           type="@(ShowPassword ? "text" : "password")"
+                           placeholder="Enter WiFi password"
+                           @bind="Password"
+                           @bind:event="oninput" />
+                    <button class="pw-toggle" @onclick="ToggleShowPassword" title="Toggle visibility">
+                        @(ShowPassword ? "🙈" : "👁️")
+                    </button>
+                </div>
+            </div>
+        }
+
+        <div class="ap-info-row">
+            <span>📶 Signal: @AccessPoint.RSSI%</span>
+            <span>📡 @AccessPoint.FrequencyBand</span>
+            <span>🔐 @AccessPoint.Security</span>
+        </div>
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert alert-error">⚠️ @ErrorMessage</div>
+        }
+
+        <div class="modal-actions">
+            <button class="btn btn-ghost" @onclick="OnCancel" disabled="@IsConnecting">
+                Cancel
+            </button>
+            <button class="btn btn-primary" @onclick="HandleConnect" disabled="@IsConnecting">
+                @if (IsConnecting)
+                {
+                    <span class="spinner"></span>
+                    <span>Connecting…</span>
+                }
+                else
+                {
+                    <span>Connect</span>
+                }
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public WifiAccessPoint AccessPoint { get; set; } = default!;
+    [Parameter] public EventCallback<(string Password, string SecurityType)> OnConnect { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public bool IsConnecting { get; set; }
+    [Parameter] public string? ErrorMessage { get; set; }
+
+    private string Password     = "";
+    private string SecurityType = "WPA2";
+    private bool   ShowPassword = false;
+
+    protected override void OnParametersSet()
+    {
+        // Pre-select security type based on detected security
+        SecurityType = AccessPoint.Security switch
+        {
+            "WPA3" => "WPA3",
+            "WPA2" => "WPA2",
+            "WPA"  => "WPA",
+            "WEP"  => "WEP",
+            _      => "Open"
+        };
+    }
+
+    private void ToggleShowPassword() => ShowPassword = !ShowPassword;
+
+    private async Task HandleConnect()
+    {
+        if (SecurityType != "Open" && string.IsNullOrWhiteSpace(Password))
+        {
+            // Parent will show error
+            await OnConnect.InvokeAsync((Password, SecurityType));
+            return;
+        }
+        await OnConnect.InvokeAsync((Password, SecurityType));
+    }
+}
