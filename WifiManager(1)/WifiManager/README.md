@@ -1,7 +1,7 @@
 # WiFi Manager – Blazor Server + NetworkManager DBus
 
 A web application for managing WiFi connections on Linux using
-ASP.NET Core Blazor Server (.NET 8) and the NetworkManager DBus API
+ASP.NET Core Blazor Server (.NET 10) and the NetworkManager DBus API
 via the **Tmds.DBus.Protocol** library.
 
 ---
@@ -45,14 +45,14 @@ via the **Tmds.DBus.Protocol** library.
 
 ## Prerequisites
 
-### 1. .NET 8 SDK
+### 1. .NET 10 SDK
 
 ```bash
 # Debian / Ubuntu
-wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+wget https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
 sudo apt-get update
-sudo apt-get install -y dotnet-sdk-8.0
+sudo apt-get install -y dotnet-sdk-10.0
 ```
 
 ### 2. NetworkManager
