@@ -1,9 +1,0 @@
-/home/minh/congty/wifi/WifiManager(1)/WifiManager/obj/Debug/net8.0/WifiManager.csproj.AssemblyReference.cache
-/home/minh/congty/wifi/WifiManager(1)/WifiManager/obj/Debug/net8.0/rpswa.dswa.cache.json
-/home/minh/congty/wifi/WifiManager(1)/WifiManager/obj/Debug/net8.0/WifiManager.GeneratedMSBuildEditorConfig.editorconfig
-/home/minh/congty/wifi/WifiManager(1)/WifiManager/obj/Debug/net8.0/WifiManager.AssemblyInfoInputs.cache
-/home/minh/congty/wifi/WifiManager(1)/WifiManager/obj/Debug/net8.0/WifiManager.AssemblyInfo.cs
-/home/minh/congty/wifi/WifiManager(1)/WifiManager/obj/Debug/net8.0/WifiManager.csproj.CoreCompileInputs.cache
-/home/minh/congty/wifi/WifiManager(1)/WifiManager/obj/Debug/net8.0/WifiManager.MvcApplicationPartsAssemblyInfo.cache
-/home/minh/congty/wifi/WifiManager(1)/WifiManager/obj/Debug/net8.0/WifiManager.RazorAssemblyInfo.cache
-/home/minh/congty/wifi/WifiManager(1)/WifiManager/obj/Debug/net8.0/WifiManager.RazorAssemblyInfo.cs

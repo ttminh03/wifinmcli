@@ -1,0 +1,50 @@
+/home/minh/congty/wifi/WifiManager (1)/WifiManager/obj/Debug/net10.0/EmbeddedAttribute.cs
+/home/minh/congty/wifi/WifiManager (1)/WifiManager/obj/Debug/net10.0/ValidatableTypeAttribute.cs
+/home/minh/congty/wifi/WifiManager (1)/WifiManager/obj/Debug/net10.0/WifiManager.csproj.AssemblyReference.cache
+/home/minh/congty/wifi/WifiManager (1)/WifiManager/obj/Debug/net10.0/rpswa.dswa.cache.json
+/home/minh/congty/wifi/WifiManager (1)/WifiManager/obj/Debug/net10.0/WifiManager.GeneratedMSBuildEditorConfig.editorconfig
+/home/minh/congty/wifi/WifiManager (1)/WifiManager/obj/Debug/net10.0/WifiManager.AssemblyInfoInputs.cache
+/home/minh/congty/wifi/WifiManager (1)/WifiManager/obj/Debug/net10.0/WifiManager.AssemblyInfo.cs
+/home/minh/congty/wifi/WifiManager (1)/WifiManager/obj/Debug/net10.0/WifiManager.csproj.CoreCompileInputs.cache
+/home/minh/congty/wifi/WifiManager (1)/WifiManager/obj/Debug/net10.0/WifiManager.MvcApplicationPartsAssemblyInfo.cache
+/home/minh/congty/wifi/WifiManager (1)/WifiManager/obj/Debug/net10.0/WifiManager.RazorAssemblyInfo.cache
+/home/minh/congty/wifi/WifiManager (1)/WifiManager/obj/Debug/net10.0/WifiManager.RazorAssemblyInfo.cs
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/EmbeddedAttribute.cs
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/ValidatableTypeAttribute.cs
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.csproj.AssemblyReference.cache
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/rpswa.dswa.cache.json
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.GeneratedMSBuildEditorConfig.editorconfig
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.AssemblyInfoInputs.cache
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.AssemblyInfo.cs
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.csproj.CoreCompileInputs.cache
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.MvcApplicationPartsAssemblyInfo.cache
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.RazorAssemblyInfo.cache
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.RazorAssemblyInfo.cs
+/home/minh/congty/wifi/WifiManager/WifiManager/bin/Debug/net10.0/appsettings.json
+/home/minh/congty/wifi/WifiManager/WifiManager/bin/Debug/net10.0/WifiManager.staticwebassets.runtime.json
+/home/minh/congty/wifi/WifiManager/WifiManager/bin/Debug/net10.0/WifiManager.staticwebassets.endpoints.json
+/home/minh/congty/wifi/WifiManager/WifiManager/bin/Debug/net10.0/WifiManager
+/home/minh/congty/wifi/WifiManager/WifiManager/bin/Debug/net10.0/WifiManager.deps.json
+/home/minh/congty/wifi/WifiManager/WifiManager/bin/Debug/net10.0/WifiManager.runtimeconfig.json
+/home/minh/congty/wifi/WifiManager/WifiManager/bin/Debug/net10.0/WifiManager.dll
+/home/minh/congty/wifi/WifiManager/WifiManager/bin/Debug/net10.0/WifiManager.pdb
+/home/minh/congty/wifi/WifiManager/WifiManager/bin/Debug/net10.0/Tmds.DBus.Protocol.dll
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/rjimswa.dswa.cache.json
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/rjsmrazor.dswa.cache.json
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/scopedcss/bundle/WifiManager.styles.css
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/compressed/qx0ch2p2ft-{0}-x1i49upg9s-x1i49upg9s.gz
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/compressed/p0jfoewl8w-{0}-j8lzlu28q6-j8lzlu28q6.gz
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/compressed/48964rqx9z-{0}-u1n4jc5v46-u1n4jc5v46.gz
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/staticwebassets.build.json
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/staticwebassets.build.json.cache
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/staticwebassets.development.json
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/staticwebassets.build.endpoints.json
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/swae.build.ex.cache
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiMana.98068888.Up2Date
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.dll
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/refint/WifiManager.dll
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.pdb
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.genruntimeconfig.cache
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/ref/WifiManager.dll
+/home/minh/congty/wifi/WifiManager/WifiManager/obj/Debug/net10.0/WifiManager.sourcelink.json
