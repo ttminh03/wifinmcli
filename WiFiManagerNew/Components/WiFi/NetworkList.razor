@@ -1,0 +1,146 @@
+@* Components/WiFi/NetworkList.razor *@
+@* Component hiển thị danh sách các mạng Wi-Fi được quét thấy *@
+
+@using WiFiManager.Models
+@using WiFiManager.Services
+
+@inject WiFiStateService State
+
+<div class="wifi-network-list">
+
+    @* === Thanh công cụ: Nút Scan + thông tin lần scan gần nhất === *@
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">
+            <span class="me-2">📡</span>Danh sách mạng Wi-Fi
+        </h5>
+        <div class="d-flex align-items-center gap-2">
+            @if (State.LastScanTime.HasValue)
+            {
+                <small class="text-muted">
+                    Lần quét: @State.LastScanTime.Value.ToString("HH:mm:ss")
+                </small>
+            }
+            <button class="btn btn-primary btn-sm"
+                    @onclick="HandleScan"
+                    disabled="@State.IsScanning">
+                @if (State.IsScanning)
+                {
+                    <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+                    <span>Đang quét...</span>
+                }
+                else
+                {
+                    <span>🔍 Quét Wi-Fi</span>
+                }
+            </button>
+        </div>
+    </div>
+
+    @* === Thông báo trạng thái === *@
+    @if (!string.IsNullOrEmpty(State.StatusMessage))
+    {
+        <div class="alert alert-@(State.IsError ? "danger" : "info") alert-dismissible py-2 mb-3" role="alert">
+            <small>@State.StatusMessage</small>
+        </div>
+    }
+
+    @* === Danh sách mạng Wi-Fi === *@
+    @if (State.Networks.Count == 0 && !State.IsScanning)
+    {
+        <div class="text-center py-5 text-muted">
+            <div style="font-size: 3rem;">📡</div>
+            <p>Chưa có dữ liệu. Nhấn "Quét Wi-Fi" để bắt đầu.</p>
+        </div>
+    }
+    else
+    {
+        <div class="list-group">
+            @foreach (var network in State.Networks)
+            {
+                <button class="list-group-item list-group-item-action wifi-network-item @(IsSelected(network) ? "active" : "")"
+                        @onclick="() => SelectNetwork(network)">
+                    <div class="d-flex justify-content-between align-items-start">
+
+                        @* Cột trái: Tên mạng + thông tin *@
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                @* Icon bảo mật *@
+                                <span title="Bảo mật: @network.SecurityType">
+                                    @(network.RequiresPassword ? "🔒" : "🔓")
+                                </span>
+                                @* Tên mạng *@
+                                <strong class="fs-6">@network.SSID</strong>
+                                @* Badge loại bảo mật *@
+                                <span class="badge bg-secondary badge-sm">@network.SecurityType</span>
+                                @* Badge băng tần *@
+                                <span class="badge bg-info text-dark badge-sm">@network.Band</span>
+                            </div>
+
+                            @* Thông tin kỹ thuật *@
+                            <div class="text-muted small">
+                                <span class="me-3" title="Địa chỉ MAC">
+                                    🖧 @network.BSSID
+                                </span>
+                                <span class="me-3" title="Tần số">
+                                    📻 @network.Frequency MHz
+                                </span>
+                                <span title="Cường độ tín hiệu">
+                                    📊 @network.SignalLevel dBm
+                                </span>
+                            </div>
+                        </div>
+
+                        @* Cột phải: Thanh cường độ tín hiệu *@
+                        <div class="text-end ms-3" style="min-width: 80px;">
+                            <div class="mb-1">
+                                <span class="badge bg-@network.SignalColor">
+                                    @network.SignalQuality%
+                                </span>
+                            </div>
+                            @* Thanh progress cường độ tín hiệu *@
+                            <div class="progress" style="height: 6px; width: 70px;">
+                                <div class="progress-bar bg-@network.SignalColor"
+                                     style="width: @network.SignalQuality%"
+                                     title="@network.SignalLevel dBm"></div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    // Kiểm tra network có đang được chọn không
+    private bool IsSelected(WiFiNetwork network)
+        => State.SelectedNetwork?.BSSID == network.BSSID;
+
+    // Xử lý click nút Scan
+    private async Task HandleScan()
+    {
+        await State.ScanAsync();
+    }
+
+    // Xử lý chọn một mạng
+    private void SelectNetwork(WiFiNetwork network)
+    {
+        // Nếu đang chọn mạng này rồi thì bỏ chọn
+        if (IsSelected(network))
+            State.ClearSelection();
+        else
+            State.SelectNetwork(network);
+    }
+
+    // Subscribe vào sự kiện thay đổi trạng thái
+    protected override void OnInitialized()
+    {
+        State.OnChange += StateHasChanged;
+    }
+
+    // Hủy subscription khi component bị dispose
+    public void Dispose()
+    {
+        State.OnChange -= StateHasChanged;
+    }
+}

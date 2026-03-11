@@ -1,0 +1,22 @@
+@page "/"
+@namespace WiFiManager.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wi-Fi Manager</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="app.css" />
+</head>
+<body class="bg-light">
+    <component type="typeof(WiFiManager.Components.App)" render-mode="ServerPrerendered" />
+    <!-- blazor.server.js có sẵn trong ASP.NET Core runtime, không cần package ngoài -->
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>

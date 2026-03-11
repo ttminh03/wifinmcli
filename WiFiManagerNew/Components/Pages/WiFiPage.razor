@@ -1,0 +1,27 @@
+@* Components/Pages/WiFiPage.razor *@
+@page "/"
+@page "/wifi"
+
+@using WiFiManager.Components.WiFi
+
+<PageTitle>Wi-Fi Manager</PageTitle>
+
+<div class="container-fluid py-3" style="max-width: 900px;">
+
+    <StatusPanel />
+
+    <ConnectForm />
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <NetworkList />
+        </div>
+    </div>
+
+    <div class="text-center text-muted small mt-4">
+        <p>
+            Giao tiếp trực tiếp với <code>wpa_supplicant</code> qua socket
+            <code>/run/wpa_supplicant/wlp0s20f3</code>
+        </p>
+    </div>
+</div>

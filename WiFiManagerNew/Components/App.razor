@@ -1,0 +1,15 @@
+@* Components/App.razor *@
+@using Microsoft.AspNetCore.Components.Routing
+
+<Router AppAssembly="typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="routeData" DefaultLayout="typeof(Components.Layout.MainLayout)" />
+        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <LayoutView Layout="typeof(Components.Layout.MainLayout)">
+            <h3>Không tìm thấy trang</h3>
+            <p>Địa chỉ này không tồn tại.</p>
+        </LayoutView>
+    </NotFound>
+</Router>

@@ -1,0 +1,186 @@
+@* Components/WiFi/ConnectForm.razor *@
+@* Component form nhập mật khẩu và thực hiện kết nối Wi-Fi *@
+
+@using WiFiManager.Models
+@using WiFiManager.Services
+
+@inject WiFiStateService State
+@implements IDisposable
+
+@* Chỉ hiển thị khi có mạng được chọn *@
+@if (State.SelectedNetwork != null)
+{
+    var network = State.SelectedNetwork;
+
+    <div class="card border-primary shadow-sm">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <span>
+                <span class="me-2">@(network.RequiresPassword ? "🔒" : "🔓")</span>
+                Kết nối: <strong>@network.SSID</strong>
+            </span>
+            <button class="btn-close btn-close-white" @onclick="Cancel" title="Đóng"></button>
+        </div>
+
+        <div class="card-body">
+
+            @* === Thông tin mạng được chọn === *@
+            <div class="row g-2 mb-3">
+                <div class="col-6">
+                    <div class="bg-light rounded p-2 text-center">
+                        <div class="text-muted small">Bảo mật</div>
+                        <strong>@network.SecurityType</strong>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="bg-light rounded p-2 text-center">
+                        <div class="text-muted small">Tín hiệu</div>
+                        <strong class="text-@network.SignalColor">@network.SignalQuality%</strong>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="bg-light rounded p-2 text-center">
+                        <div class="text-muted small">Tần số</div>
+                        <strong>@network.Band</strong>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="bg-light rounded p-2 text-center">
+                        <div class="text-muted small">BSSID</div>
+                        <small class="font-monospace">@network.BSSID</small>
+                    </div>
+                </div>
+            </div>
+
+            @* === Form nhập mật khẩu === *@
+            @if (network.RequiresPassword)
+            {
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        Mật khẩu Wi-Fi
+                        @if (network.SecurityType == "WPA3")
+                        {
+                            <span class="badge bg-info text-dark ms-2">WPA3-SAE</span>
+                        }
+                    </label>
+                    <div class="input-group">
+                        <input type="@(ShowPassword ? "text" : "password")"
+                               class="form-control @(ValidationError != null ? "is-invalid" : "")"
+                               placeholder="Nhập mật khẩu..."
+                               @bind="Password"
+                               @bind:event="oninput"
+                               @onkeydown="HandleKeyDown"
+                               disabled="@State.IsConnecting"
+                               autocomplete="off" />
+                        <button class="btn btn-outline-secondary"
+                                type="button"
+                                @onclick="TogglePasswordVisibility"
+                                title="@(ShowPassword ? "Ẩn" : "Hiện") mật khẩu">
+                            @(ShowPassword ? "🙈" : "👁️")
+                        </button>
+                        @if (ValidationError != null)
+                        {
+                            <div class="invalid-feedback">@ValidationError</div>
+                        }
+                    </div>
+                    <div class="form-text">
+                        Mật khẩu tối thiểu 8 ký tự cho WPA/WPA2/WPA3
+                    </div>
+                </div>
+            }
+            else
+            {
+                @* Mạng mở: không cần mật khẩu *@
+                <div class="alert alert-warning py-2 mb-3">
+                    <small>⚠️ Mạng này không được mã hóa. Dữ liệu của bạn có thể bị nghe lén.</small>
+                </div>
+            }
+
+            @* === Nút hành động === *@
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary flex-grow-1"
+                        @onclick="Connect"
+                        disabled="@State.IsConnecting">
+                    @if (State.IsConnecting)
+                    {
+                        <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+                        <span>Đang kết nối...</span>
+                    }
+                    else
+                    {
+                        <span>⚡ Kết nối</span>
+                    }
+                </button>
+                <button class="btn btn-outline-secondary"
+                        @onclick="Cancel"
+                        disabled="@State.IsConnecting">
+                    Hủy
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private string Password = string.Empty;
+    private bool ShowPassword = false;
+    private string? ValidationError = null;
+
+    // Hiển thị/ẩn mật khẩu
+    private void TogglePasswordVisibility() => ShowPassword = !ShowPassword;
+
+    // Xử lý phím Enter để kết nối
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+            await Connect();
+    }
+
+    // Validate và thực hiện kết nối
+    private async Task Connect()
+    {
+        if (State.SelectedNetwork == null) return;
+
+        // Validate mật khẩu
+        ValidationError = null;
+        if (State.SelectedNetwork.RequiresPassword)
+        {
+            if (string.IsNullOrEmpty(Password))
+            {
+                ValidationError = "Vui lòng nhập mật khẩu";
+                return;
+            }
+            if (Password.Length < 8)
+            {
+                ValidationError = "Mật khẩu phải có ít nhất 8 ký tự";
+                return;
+            }
+        }
+
+        await State.ConnectAsync(
+            State.SelectedNetwork.SSID,
+            Password,
+            State.SelectedNetwork.SecurityType);
+
+        // Reset form sau khi kết nối
+        Password = string.Empty;
+        ValidationError = null;
+    }
+
+    // Hủy bỏ
+    private void Cancel()
+    {
+        Password = string.Empty;
+        ValidationError = null;
+        State.ClearSelection();
+    }
+
+    protected override void OnInitialized()
+    {
+        State.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        State.OnChange -= StateHasChanged;
+    }
+}

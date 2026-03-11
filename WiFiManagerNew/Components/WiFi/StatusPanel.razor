@@ -1,0 +1,120 @@
+@* Components/WiFi/StatusPanel.razor *@
+@* Component hiển thị trạng thái kết nối Wi-Fi hiện tại *@
+
+@using WiFiManager.Models
+@using WiFiManager.Services
+
+@inject WiFiStateService State
+@implements IDisposable
+
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>
+            <span class="me-2">📶</span>Trạng thái kết nối
+        </span>
+        <div class="d-flex gap-2 align-items-center">
+            @* Chỉ báo trạng thái live *@
+            <span class="badge bg-@State.CurrentStatus.StatusColor rounded-pill">
+                @State.CurrentStatus.FriendlyState
+            </span>
+            @* Nút refresh *@
+            <button class="btn btn-outline-secondary btn-sm"
+                    @onclick="RefreshStatus"
+                    title="Làm mới trạng thái">
+                🔄
+            </button>
+        </div>
+    </div>
+
+    <div class="card-body py-3">
+        @if (State.CurrentStatus.IsConnected)
+        {
+            @* === Đang kết nối === *@
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="text-success" style="font-size: 2.5rem;">✅</div>
+                        <div>
+                            <div class="text-muted small">Mạng Wi-Fi</div>
+                            <strong class="fs-5">@State.CurrentStatus.SSID</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="bg-light rounded p-2">
+                                <div class="text-muted small">Địa chỉ IP</div>
+                                <code class="text-dark">
+                                    @(string.IsNullOrEmpty(State.CurrentStatus.IPAddress)
+                                        ? "Đang lấy..." : State.CurrentStatus.IPAddress)
+                                </code>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="bg-light rounded p-2">
+                                <div class="text-muted small">BSSID (AP)</div>
+                                <code class="text-dark small">@State.CurrentStatus.BSSID</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Nút ngắt kết nối *@
+            <div class="mt-3">
+                <button class="btn btn-outline-danger btn-sm" @onclick="Disconnect">
+                    ⛔ Ngắt kết nối
+                </button>
+            </div>
+        }
+        else if (State.CurrentStatus.WpaState is "ASSOCIATING" or "ASSOCIATED" or "4WAY_HANDSHAKE")
+        {
+            @* === Đang trong quá trình kết nối === *@
+            <div class="d-flex align-items-center gap-3">
+                <div class="spinner-border text-warning" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div>
+                    <strong>@State.CurrentStatus.FriendlyState</strong>
+                    <div class="text-muted small">Vui lòng chờ...</div>
+                </div>
+            </div>
+        }
+        else
+        {
+            @* === Chưa kết nối === *@
+            <div class="d-flex align-items-center gap-3 text-muted">
+                <div style="font-size: 2rem;">📵</div>
+                <div>
+                    <strong>Chưa kết nối</strong>
+                    <div class="small">Hãy quét và chọn một mạng Wi-Fi bên dưới</div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private async Task RefreshStatus()
+    {
+        await State.RefreshStatusAsync();
+    }
+
+    private async Task Disconnect()
+    {
+        await State.DisconnectAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        State.OnChange += StateHasChanged;
+        // Tự động lấy trạng thái khi component khởi tạo
+        await State.RefreshStatusAsync();
+    }
+
+    public void Dispose()
+    {
+        State.OnChange -= StateHasChanged;
+    }
+}
