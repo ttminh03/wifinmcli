@@ -50,14 +50,14 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/minh/congty/wifi/wpa_supplicant/WiFiManager_final/WiFiManagerNew/WiFiManager.csproj",
+      "projectUniqueName": "/home/minh/congty/wifi/wifi/WiFiManagerNew/WiFiManager.csproj",
       "projectName": "WiFiManager",
-      "projectPath": "/home/minh/congty/wifi/wpa_supplicant/WiFiManager_final/WiFiManagerNew/WiFiManager.csproj",
+      "projectPath": "/home/minh/congty/wifi/wifi/WiFiManagerNew/WiFiManager.csproj",
       "packagesPath": "/home/minh/.nuget/packages/",
-      "outputPath": "/home/minh/congty/wifi/wpa_supplicant/WiFiManager_final/WiFiManagerNew/obj/",
+      "outputPath": "/home/minh/congty/wifi/wifi/WiFiManagerNew/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/minh/congty/wifi/wpa_supplicant/WiFiManager_final/WiFiManagerNew/NuGet.config",
+        "/home/minh/congty/wifi/wifi/WiFiManagerNew/NuGet.config",
         "/home/minh/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [

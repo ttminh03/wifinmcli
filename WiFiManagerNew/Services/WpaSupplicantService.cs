@@ -125,9 +125,14 @@ public class WpaSupplicantService : IDisposable
 
         try
         {
+            if (!File.Exists(_controlSocketPath))
+            {
+                _logger.LogError("Control socket không tồn tại: {Path}", _controlSocketPath);
+                return null;
+            }
+
             // Bind client socket để wpa_supplicant biết địa chỉ gửi response về
             socket.Bind(new UnixDomainSocketEndPoint(clientPath));
-            socket.ReceiveTimeout = ReceiveTimeoutMs;
 
             // Dùng SendTo() - không cần Connect()
             var serverEndPoint = new UnixDomainSocketEndPoint(_controlSocketPath);
@@ -138,7 +143,8 @@ public class WpaSupplicantService : IDisposable
 
             // Nhận phản hồi
             var buffer = new byte[BufferSize];
-            var received = await socket.ReceiveAsync(buffer, SocketFlags.None);
+            using var cts = new CancellationTokenSource(ReceiveTimeoutMs);
+            var received = await socket.ReceiveAsync(buffer, SocketFlags.None, cts.Token);
             var response = Encoding.ASCII.GetString(buffer, 0, received);
 
             _logger.LogDebug("Nhận ({Bytes}b): {Response}",
@@ -146,7 +152,7 @@ public class WpaSupplicantService : IDisposable
 
             return response;
         }
-        catch (SocketException ex) when (ex.SocketErrorCode == SocketError.TimedOut)
+        catch (OperationCanceledException)
         {
             _logger.LogWarning("Timeout lệnh: {Command}", command);
             return null;

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WiFiManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+317850ea074b2cde1ef401b61b1862e73d9c3b39")]
 [assembly: System.Reflection.AssemblyProductAttribute("WiFiManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WiFiManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
